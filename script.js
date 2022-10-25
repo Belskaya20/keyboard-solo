@@ -1,4 +1,4 @@
-const word = document.querySelectorAll('.word');
+const wordChoose = document.querySelector('.word');
 const timer = document.getElementById('timer');
 const wrongCount = document.querySelector('.wrong-count');
 const wordMistake = document.querySelector('.word-mistakes');
@@ -11,43 +11,61 @@ function random() {
         'paper', 'family', 'ship', 'wind', 'moon', 'song',
         'potato', 'pig', 'rich', 'king', 'yellow', 'blue',
         'pen', 'phone', 'son', 'travel', 'six', 'morning'
-    ]
+    ];
 
     const randWord = Math.floor(Math.random() * (words.length));
     return words[randWord];
 }
 
+//присвоили переменную для слова,которое берется в работу из Random и каждое из этих слов оборачивается в span
+let wordNow = random();
+spanWord(wordNow);
 
-function insertWord(words) {
-    word.innerHTML = words;
+//Обернули слова в span
+function spanWord(word) {
+    word.split('').map((it) => `<span>${it}</span>`).join('');
+    wordChoose.innerHTML = word;
 }
-const newWord = random();
-insertWord(newWord);
 
 
 let i = 0;
 document.addEventListener('keypress', (event) => {
-    if (event.key == newWord[i]) {
-        word[i].className = "c"
+    if (event.key === wordNow[i]) {
+        wordChoose[i].className = "c";
         i++;
     } else {
-        event.key == newWord[i];
-        word[i].className = "w"
-        wrongCount.textContent = ++wrongCount.textContent;
+        event.key === wordNow[i];
+        wordChoose[i].className = "w";
         wordMistake.textContent = ++wordMistake.textContent;
+        wrongCount.textContent = ++wrongCount.textContent;
         i++;
     }
-    if (randWord == length.newWord) {
+    if (i === length.newWord) {
         correctCount.textContent = ++correctCount.textContent;
-        clearTimeout(timer);
+        setTimeout(RandomNextWord);
     }
 })
 
 
+//выбор след слова
+function RandomNextWord() {
+    gameWord();
+    wordNow = random();
+    spanWord(wordNow);
+    i = 0;
+    wordMistake.textContent = 0;
+}
+
+
+function gameWord() {
+    alert(`Ваш результат${correctCount.textContent}`);
+}
+
+
+
+
 let ssec = '00';
 let min = '00';
-
-
 const timerStart = setInterval(() => {
     document.getElementById('timer').innerHTML = `${min}:${ssec}`;
 
