@@ -23,32 +23,35 @@ spanWord(wordNow);
 
 //Обернули слова в span
 function spanWord(word) {
-    word.split('').map((it) => `<span>${it}</span>`).join('');
-    wordChoose.innerHTML = word;
-}
+    wordChoose.innerHTML = word
+      .split("")
+      .map((it) => `<span>${it}</span>`)
+      .join("");
+  }
 
 
 let i = 0;
-document.addEventListener('keypress', (event) => {
+document.addEventListener("keypress", (event) => {
+    const spans = wordChoose.querySelectorAll("span");
     if (event.key === wordNow[i]) {
-        wordChoose[i].className = "c";
-        i++;
+      spans[i].className = "c";
+      i++;
     } else {
-        event.key === wordNow[i];
-        wordChoose[i].className = "w";
-        wordMistake.textContent = ++wordMistake.textContent;
-        wrongCount.textContent = ++wrongCount.textContent;
-        i++;
+      event.key === wordNow[i];
+      spans[i].className = "w";
+      wordMistake.textContent = ++wordMistake.textContent;
+      wrongCount.textContent = ++wrongCount.textContent;
+      i++;
     }
-    if (i === length.newWord) {
-        correctCount.textContent = ++correctCount.textContent;
-        setTimeout(RandomNextWord);
+    if (wordNow.length == randWord) {
+      correctCount.textContent = ++correctCount.textContent;
+      setTimeout(randomNextWord, 0);
     }
-})
+  });
 
 
 //выбор след слова
-function RandomNextWord() {
+function randomNextWord() {
     gameWord();
     wordNow = random();
     spanWord(wordNow);
@@ -58,7 +61,10 @@ function RandomNextWord() {
 
 
 function gameWord() {
-    alert(`Ваш результат${correctCount.textContent}`);
+    if (correctCount.textContent >= 10) {
+    alert(`Правильных слов${correctCount.textContent}, Слова с ошибками${wrongCount.textContent}`);
+    }
+    clearTimer();
 }
 
 
