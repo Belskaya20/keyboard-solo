@@ -4,6 +4,7 @@ const wrongCount = document.querySelector('.wrong-count');
 const wordMistake = document.querySelector('.word-mistakes');
 const correctCount = document.querySelector('.correct-count');
 
+
 function random() {
     const words = [
         'mother', 'world', 'work', 'friend', 'book', 'idea',
@@ -12,10 +13,10 @@ function random() {
         'potato', 'pig', 'rich', 'king', 'yellow', 'blue',
         'pen', 'phone', 'son', 'travel', 'six', 'morning'
     ];
-
     const randWord = Math.floor(Math.random() * (words.length));
     return words[randWord];
 }
+
 
 //присвоили переменную для слова,которое берется в работу из Random и каждое из этих слов оборачивается в span
 let wordNow = random();
@@ -43,7 +44,7 @@ document.addEventListener("keypress", (event) => {
       wrongCount.textContent = ++wrongCount.textContent;
       i++;
     }
-    if (wordNow.length == randWord) {
+    if (wordNow.length == i) {
       correctCount.textContent = ++correctCount.textContent;
       setTimeout(randomNextWord, 0);
     }
@@ -62,9 +63,9 @@ function randomNextWord() {
 
 function gameWord() {
     if (correctCount.textContent >= 10) {
-    alert(`Правильных слов${correctCount.textContent}, Слова с ошибками${wrongCount.textContent}`);
-    }
+    alert(`Правильных слов ${correctCount.textContent}, Слова с ошибками ${wrongCount.textContent}`);
     clearTimer();
+    }
 }
 
 
@@ -85,6 +86,6 @@ const timerStart = setInterval(() => {
 }, 1000);
 
 function clearTimer() {
-    clearInterval(funcTimer);
+    clearInterval(timerStart);
     timer.textContent = `00:00`;
 }
